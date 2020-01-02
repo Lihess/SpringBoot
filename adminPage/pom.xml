@@ -16,12 +16,21 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<m2e.apt.activation>disabled</m2e.apt.activation>
+		<!-- lombok 사용을 위함 -->	
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- lombok 사용을 위함 -->	
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.10</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -51,5 +60,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
