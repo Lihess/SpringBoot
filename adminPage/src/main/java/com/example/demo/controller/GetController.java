@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GetController{
     
     @RequestMapping(method = RequestMethod.GET, path = "/getMethod") // localhost:8080/api/getMehod와 매핑됨. 
+    // 같은 클래스 내의 메소드에서 매핑되는 주소가 같으면 스프링부트 실행 불가
     public String getRequest(){
         return "Hi getMothod";
     }
