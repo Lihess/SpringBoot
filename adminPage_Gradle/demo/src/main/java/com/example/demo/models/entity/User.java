@@ -10,13 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.context.annotation.Configuration;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Configuration
 @Data
 @AllArgsConstructor
 @NoArgsConstructor // 기본 생성자
@@ -29,10 +26,18 @@ public class User{
     
     private String account;
     
+    private String password;
+
+    private String status;
+
     private String email;
     
     private String phoneNumber;
     // sql에서는 phone_number과 같이 표기하는 데, java에서늬 표기법을 보고 자동으로 sql과 매칭해줌
+    
+    private LocalDateTime registeredAt;
+
+    private LocalDateTime unregistered;
     
     private LocalDateTime createdAt;
     
