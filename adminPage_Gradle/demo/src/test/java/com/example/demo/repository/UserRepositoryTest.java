@@ -35,5 +35,20 @@ public class UserRepositoryTest extends DemoApplicationTests{
             System.out.println("User : " + selectUser );
         });
     }
+
+    @Test
+    public void update(){
+        Optional<User> user = userRepository.findById(2L);
+        
+        user.ifPresent(selectUser -> { 
+            selectUser.setAccount("PPPPP");
+            selectUser.setEmail("email@did.com");
+            selectUser.setUpdatedAt(LocalDateTime.now());
+            selectUser.setUpdatedBy("admin");
+
+            userRepository.save(selectUser);
+            // 해당 아이디가 존재한다면 UPDATE 진행. selectUser의 ID는 변경불가하므로, 다른 id로 지정한다면 지정된 id의 엔터티가 업데이트됨.
+        });
+    }
 }
     
