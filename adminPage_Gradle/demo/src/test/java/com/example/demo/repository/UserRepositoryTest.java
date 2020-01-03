@@ -17,25 +17,35 @@ public class UserRepositoryTest extends DemoApplicationTests{
   
    @Test
     public void create(){
+        String account = "Test01";
+        String password = "Test01";
+        String status = "REGISTERED";
+        String email = "Test@gmail.com";
+        String phoneNumber = "010-1111-1111";
+        LocalDateTime registeredAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
+
         User user = new User(); // 매번 새로 추가해야하는 엔터티이므로.
 
-        user.setAccount("TestUser02");
-        user.setEmail("email@maisn.com");
-        user.setPhoneNumber("010-1111-1111");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("test");
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registeredAt);
+        user.setCreatedAt(createdAt);
+        user.setCreatedBy(createdBy);
 
         User newUser = userRepository.save(user); // DB에 저장 후, 저장된 엔터티를 반환
-        System.out.println("User : " + newUser );
+        Assert.assertNotNull(newUser);
     }
 
     @Test
     public void read(){
-        Optional<User> user = userRepository.findById(2L); // Long 타입이므로.
-        // optional : 있을수도 없을 수도
-        user.ifPresent(selectUser -> { // 만약 존재한다면
-            System.out.println("User : " + selectUser );
-        });
+        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-1111");
+        Assert.assertNotNull(user);
+    
     }
 
     @Test

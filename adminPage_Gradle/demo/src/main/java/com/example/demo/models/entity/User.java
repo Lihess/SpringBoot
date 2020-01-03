@@ -37,7 +37,7 @@ public class User{
     
     private LocalDateTime registeredAt;
 
-    private LocalDateTime unregistered;
+    private LocalDateTime unregisteredAt;
     
     private LocalDateTime createdAt;
     
@@ -47,9 +47,9 @@ public class User{
     
     private String updatedBy;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     // fetch 타입과 매핑될 속성 지정
     // lazy : 지연로딩으로 선택한 속성에 대해서만 조인이 일어남 > 지연이 적음으로 추천
     // eager : 즉시 로딩으로 즉시 모든 연관 속성에 대해 조인이 일어남 > 1 : 1일 경우에는 사용
-    private List<OrderDetail> orderDetailList;
+    //private List<OrderDetail> orderDetailList;
 }

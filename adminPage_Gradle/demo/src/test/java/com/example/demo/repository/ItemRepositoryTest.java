@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import com.example.demo.DemoApplicationTests;
@@ -16,9 +17,16 @@ public class ItemRepositoryTest extends DemoApplicationTests{
     @Test
     public void create(){
         Item item = new Item();
-        item.setName("노트북");
-        item.setPrice(1000000);
+        item.setStatus("UNRESUATERED");
+        item.setName("삼성 노트북");
+        item.setTitle("삼성 노트북 A100");
         item.setContent("삼성");
+        item.setPrice(1000000);
+        item.setBrandName("삼성");
+        item.setRegisteredAt(LocalDateTime.now());
+        item.setCreatedAt(LocalDateTime.now());
+        item.setCreatedBy("AdminUser");
+        item.setPartnerId(1L);
 
         Item newItem = itemRepository.save(item);
         Assert.assertNotNull(newItem);

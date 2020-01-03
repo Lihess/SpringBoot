@@ -27,7 +27,7 @@ public class Item{
 
     private String name;
     
-    private String titile;
+    private String title;
 
     private String content;
 
@@ -35,7 +35,7 @@ public class Item{
 
     private String brandName;
 
-    private LocalDateTime registerAt;
+    private LocalDateTime registeredAt;
 
     private LocalDateTime createdAt;
     
@@ -44,4 +44,6 @@ public class Item{
     private LocalDateTime updatedAt;
     
     private String updatedBy;
+
+    private Long partnerId;
 }

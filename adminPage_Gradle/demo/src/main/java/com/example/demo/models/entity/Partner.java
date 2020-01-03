@@ -28,13 +28,13 @@ public class Partner{
 
     private String callCenter;
 
-    private String partnetNumber;
+    private String partnerNumber;
 
     private String businessNumber;
 
     private String ceoName;
 
-    private LocalDateTime registerAt;
+    private LocalDateTime registeredAt;
 
     private LocalDateTime createdAt;
     
@@ -43,4 +43,6 @@ public class Partner{
     private LocalDateTime updatedAt;
     
     private String updatedBy;
+
+    private Long categoryId;
 }
