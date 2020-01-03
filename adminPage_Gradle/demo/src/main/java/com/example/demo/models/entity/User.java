@@ -1,11 +1,14 @@
 package com.example.demo.models.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.context.annotation.Configuration;
 
@@ -23,12 +26,23 @@ public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql이므로.
     private Long id;
+    
     private String account;
+    
     private String email;
+    
     private String phoneNumber;
     // sql에서는 phone_number과 같이 표기하는 데, java에서늬 표기법을 보고 자동으로 sql과 매칭해줌
+    
     private LocalDateTime createdAt;
+    
     private String createdBy;
+    
     private LocalDateTime updatedAt;
+    
     private String updatedBy;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    // fetch 타입과 매핑될 속성 지정
+    private List<OrderDetail> orderDetailList;
 }
