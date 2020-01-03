@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.models.entity.User;
 
 @Repository
-@EnableJpaRepositories( "com.example.demo") 
 public interface UserRepository extends JpaRepository<User,Long> {
-    User user();
+    
 }
