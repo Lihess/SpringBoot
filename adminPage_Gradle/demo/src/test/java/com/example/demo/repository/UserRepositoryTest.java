@@ -7,7 +7,9 @@ import com.example.demo.DemoApplicationTests;
 import com.example.demo.models.entity.User;
 
 import org.junit.Test; 
-import org.springframework.beans.factory.annotation.Autowired; 
+import org.junit.Assert;  
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 public class UserRepositoryTest extends DemoApplicationTests{
     @Autowired // Dependency Injection. 생성자를 사용하여 객체를 생성하지 않음. 이는 스프링부트가 알아서
@@ -49,6 +51,21 @@ public class UserRepositoryTest extends DemoApplicationTests{
             userRepository.save(selectUser);
             // 해당 아이디가 존재한다면 UPDATE 진행. selectUser의 ID는 변경불가하므로, 다른 id로 지정한다면 지정된 id의 엔터티가 업데이트됨.
         });
+    }
+
+    @Test
+    @Transactional // 실행을 시키더라도 마지막에 롤백시켜서 데이터, 테스트할 때 유용하다!
+    public void delete(){
+        Optional<User> user = userRepository.findById(3L);
+
+        Assert.assertTrue(user.isPresent()); // 유저가 존재함을 보증함.
+
+        user.ifPresent(selectUser -> { 
+           userRepository.delete(selectUser);
+        });
+
+        Optional<User> deleteUser = userRepository.findById(2L);
+        Assert.assertFalse(deleteUser.isPresent());
     }
 }
     
