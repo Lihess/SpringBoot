@@ -39,7 +39,7 @@ public class AdminUser{
     
     private LocalDateTime registeredAt;
 
-    private LocalDateTime unregistered;
+    private LocalDateTime unregisteredAt;
 
     private LocalDateTime createdAt;
     

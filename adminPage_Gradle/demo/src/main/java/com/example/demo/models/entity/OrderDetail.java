@@ -1,6 +1,7 @@
 package com.example.demo.models.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -25,11 +26,9 @@ public class OrderDetail{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime orderAt;
-
     private String status;
 
-    private LocalDateTime arrivalDate;
+    private LocalDate arrivalDate;
 
     private Integer quantity;
 
@@ -43,6 +42,9 @@ public class OrderDetail{
     
     private String updatedBy;
 
+    private Long orderGroupId;
+
+    private Long itemId;
     //@ManyToOne  N : 1, 본인을 기준으로~!
     //private User user;  연관설정을 위해 객체로 지정
    

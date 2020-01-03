@@ -21,7 +21,7 @@ public class OrderGroup{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String stats;
+    private String status;
 
     private String orderType; // 일관 or 개별
 
@@ -46,5 +46,7 @@ public class OrderGroup{
     private LocalDateTime updatedAt;
     
     private String updatedBy;
+
+    private Long userId;
 }
 
