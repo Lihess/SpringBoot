@@ -8,16 +8,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(exclude = {"orderDetailList", "partner"})
 public class Item{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,5 +48,11 @@ public class Item{
     
     private String updatedBy;
 
-    private Long partnerId;
+    // item : partner : N : 1
+    @ManyToOne
+    private Partner partner;
+
+    // item : orederDetail : 1 : N
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
+    private List<OrderDetail> orderDetailList;
 }

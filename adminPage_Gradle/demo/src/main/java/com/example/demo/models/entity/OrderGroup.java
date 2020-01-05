@@ -2,20 +2,26 @@ package com.example.demo.models.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(exclude = {"user", "orderDetailList"})
 public class OrderGroup{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +53,12 @@ public class OrderGroup{
     
     private String updatedBy;
 
-    private Long userId;
+    // orderGroup : User = n : 1
+    @ManyToOne // 유저에서 설정한 매핑 변수와 이름이 동일해야 함.
+    private User user;
+
+    // orderGroup : orderDetail = 1 : n
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderGroup")
+    private List<OrderDetail> orderDetailList;
 }
 

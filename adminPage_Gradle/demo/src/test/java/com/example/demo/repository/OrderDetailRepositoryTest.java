@@ -18,8 +18,8 @@ public class OrderDetailRepositoryTest extends DemoApplicationTests{
     @Test
     public void create(){
         OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setOrderGroupId(1L);
-        orderDetail.setItemId(1L);
+        //orderDetail.setOrderGroupId(1L);
+        //orderDetail.setItemId(1L);
         orderDetail.setStatus("WATING");
         orderDetail.setArrivalDate(LocalDate.now().plusDays(2)); 
         // 현재에서 이틀 추가

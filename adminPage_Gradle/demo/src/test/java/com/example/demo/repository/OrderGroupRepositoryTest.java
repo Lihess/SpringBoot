@@ -3,6 +3,8 @@ package com.example.demo.repository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.transaction.Transactional;
+
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.models.entity.OrderGroup;
 
@@ -15,6 +17,7 @@ public class OrderGroupRepositoryTest extends DemoApplicationTests{
     private OrderGroupRepository orderGroupRepository;
 
     @Test
+    @Transactional
     public void create(){
         OrderGroup orderGroup = new OrderGroup();
         orderGroup.setStatus("COMPLETE");
@@ -28,7 +31,7 @@ public class OrderGroupRepositoryTest extends DemoApplicationTests{
         orderGroup.setArrivalDate(LocalDateTime.now());
         orderGroup.setCreatedAt(LocalDateTime.now());
         orderGroup.setCreatedBy("Admin");
-        orderGroup.setUserId(1L);
+        //orderGroup.setUser();
 
         OrderGroup newOrderGroup = orderGroupRepository.save(orderGroup);
         Assert.assertNotNull(newOrderGroup);
