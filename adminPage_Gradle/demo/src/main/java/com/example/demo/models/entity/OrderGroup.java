@@ -14,15 +14,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+@Builder // User.bulider().account(accuont).status(status).bulid() 와 같이 사용하여 객체생성! 이럴 경우, 생성자가 많아지는 문제를 해결할 수 있다.
+@Accessors(chain = true) // user.setAccut().setStatus()..와 같이 한번에 데이터 변경 가능
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -63,7 +68,7 @@ public class OrderGroup{
     
     @LastModifiedBy // 설정한 AdminServer로 반환됨
     private String updatedBy;
-    
+
     // orderGroup : User = n : 1
     @ManyToOne // 유저에서 설정한 매핑 변수와 이름이 동일해야 함.
     private User user;

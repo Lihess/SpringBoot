@@ -15,9 +15,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
+@Builder // User.bulider().account(accuont).status(status).bulid() 와 같이 사용하여 객체생성! 이럴 경우, 생성자가 많아지는 문제를 해결할 수 있다.
+@Accessors(chain = true) // user.setAccut().setStatus()..와 같이 한번에 데이터 변경 가능
 @Data
 @AllArgsConstructor
 @NoArgsConstructor // 기본 생성자
