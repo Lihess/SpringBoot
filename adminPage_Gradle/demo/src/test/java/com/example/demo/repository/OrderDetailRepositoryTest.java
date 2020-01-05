@@ -26,8 +26,6 @@ public class OrderDetailRepositoryTest extends DemoApplicationTests{
          // 날짜이므로 Date 가 맞음
         orderDetail.setQuantity(1);
         orderDetail.setTotalPrice(BigDecimal.valueOf(1000000));
-        orderDetail.setCreatedAt(LocalDateTime.now());
-        orderDetail.setCreatedBy("Admin");
 
         OrderDetail newOrder = orderDetailRepository.save(orderDetail);
         Assert.assertNotNull(newOrder);

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,12 +17,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor // 기본 생성자
 @Entity
 //@Table(name= "user") 테이블의 이름 명시. 클래스 명과 동일하다면 선언 안해도 됨.
 @ToString(exclude = {"orderGroupList"})
+@EntityListeners(AuditingEntityListener.class)
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql이므로.
@@ -42,12 +49,16 @@ public class User{
 
     private LocalDateTime unregisteredAt;
     
+    @CreatedDate
     private LocalDateTime createdAt;
     
+    @CreatedBy
     private String createdBy;
     
+    @LastModifiedDate
     private LocalDateTime updatedAt;
     
+    @LastModifiedBy // 설정한 AdminServer로 반환됨
     private String updatedBy;
 
     // User : orederGroup = 1 : N

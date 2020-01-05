@@ -17,15 +17,13 @@ public class UserRepositoryTest extends DemoApplicationTests{
   
    @Test
     public void create(){
-        String account = "Test01";
+        String account = "Test03";
         String password = "Test01";
         String status = "REGISTERED";
         String email = "Test@gmail.com";
-        String phoneNumber = "010-1111-1111";
+        String phoneNumber = "010-1111-3333";
         LocalDateTime registeredAt = LocalDateTime.now();
-        LocalDateTime createdAt = LocalDateTime.now();
-        String createdBy = "AdminServer";
-
+        
         User user = new User(); // 매번 새로 추가해야하는 엔터티이므로.
 
         user.setAccount(account);
@@ -34,8 +32,6 @@ public class UserRepositoryTest extends DemoApplicationTests{
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registeredAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
 
         User newUser = userRepository.save(user); // DB에 저장 후, 저장된 엔터티를 반환
         Assert.assertNotNull(newUser);

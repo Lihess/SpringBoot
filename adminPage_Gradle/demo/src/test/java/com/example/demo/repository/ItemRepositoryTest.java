@@ -24,8 +24,6 @@ public class ItemRepositoryTest extends DemoApplicationTests{
         item.setPrice(1000000);
         item.setBrandName("삼성");
         item.setRegisteredAt(LocalDateTime.now());
-        item.setCreatedAt(LocalDateTime.now());
-        item.setCreatedBy("AdminUser");
         //item.setPartnerId(1L);
 
         Item newItem = itemRepository.save(item);
