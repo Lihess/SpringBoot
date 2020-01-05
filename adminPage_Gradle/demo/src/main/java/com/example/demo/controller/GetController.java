@@ -1,5 +1,7 @@
 package com.example.demo.controller;
+
 import com.example.demo.models.SearchParam;
+import com.example.demo.models.network.Header;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,5 +39,10 @@ public class GetController{
 
         return searchParam;
         // 스프링 라이브러리 자체에서 객체를 JSON 객체의 형태로 변환해줌
+    }
+
+    @GetMapping("/header")
+    public Header getHeader(){
+        return Header.builder().resultCode("OK").description("OK").build();  
     }
 }
