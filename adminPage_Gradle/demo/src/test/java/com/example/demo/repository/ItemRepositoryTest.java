@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class ItemRepositoryTest extends DemoApplicationTests{
         item.setName("삼성 노트북");
         item.setTitle("삼성 노트북 A100");
         item.setContent("삼성");
-        item.setPrice(1000000);
+        item.setPrice(BigDecimal.valueOf(1000000));
         item.setBrandName("삼성");
         item.setRegisteredAt(LocalDateTime.now());
         //item.setPartnerId(1L);
