@@ -54,6 +54,8 @@ public class Partner{
 
     private LocalDateTime registeredAt;
 
+    private LocalDateTime unregisteredAt;
+
     @CreatedDate
     private LocalDateTime createdAt;
     
