@@ -59,9 +59,11 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
                     .setOrderAt(orderGroupApiRequest.getOrderAt())
                     .setUser(userRepository.getOne(orderGroupApiRequest.getId()));
 
-            return orderGroup;
-        }).map(orderGroup -> baseRepository.save(orderGroup)).map(updataOG -> response(updataOG))
-                .orElseGet(() -> Header.ERROR("데이터가 없음"));
+                return orderGroup;
+            })
+            .map(orderGroup -> baseRepository.save(orderGroup))
+            .map(updataOG -> response(updataOG))
+            .orElseGet(() -> Header.ERROR("데이터가 없음"));
     }
 
     @Override
