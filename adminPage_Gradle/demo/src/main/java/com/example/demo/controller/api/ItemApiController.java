@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 
 import com.example.demo.controller.CrudController;
 import com.example.demo.ifs.CrudInterface;
+import com.example.demo.models.entity.Item;
 import com.example.demo.models.network.Header;
 import com.example.demo.models.network.request.ItemApiRequest;
 import com.example.demo.models.network.response.ItemApiResponse;
@@ -24,13 +25,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j // log 사용을 위해
 @RestController
 @RequestMapping("/api/item")
-public class ItemApiController extends CrudController<ItemApiRequest, ItemApiResponse> {
+public class ItemApiController extends CrudController<ItemApiRequest, ItemApiResponse, Item> {
 
-    @Autowired
-    private ItemApiLogicService itemApiLogicService;
-
-    @PostConstruct
-    public void init(){ this.baseService = itemApiLogicService; }
+    //@Autowired
+    //private ItemApiLogicService itemApiLogicService;
+    
+    //@PostConstruct
+    //public void init(){ this.baseService = itemApiLogicService; }
 
     // -- CrudController을 상속받아서 밑에 다 필요가 없다~!! --
 

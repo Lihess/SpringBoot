@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderGroupApiLogicService implements CrudInterface<OrderGroupApiRequest, OrderGroupApiResponse> {
-    @Autowired
-    private OrderGroupRepository orderGroupRepository;
-
+public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest, OrderGroupApiResponse, OrderGroup> {
     @Autowired
     private UserRepository userRepository;
 
@@ -37,47 +34,41 @@ public class OrderGroupApiLogicService implements CrudInterface<OrderGroupApiReq
                                             .orderAt(LocalDateTime.now())
                                             .user(userRepository.getOne(body.getUserId()))
                                             .build();
-        OrderGroup newOrderGroup = orderGroupRepository.save(orderGroup);
+        OrderGroup newOrderGroup = baseRepository.save(orderGroup);
 
         return response(newOrderGroup);
     }
 
     @Override
     public Header<OrderGroupApiResponse> read(Long id) {
-        Optional<OrderGroup> optional = orderGroupRepository.findById(id);
-        
-        return optional.map(this::response)
-                        .orElseGet(() -> Header.ERROR("데이터가 없음"));
+        Optional<OrderGroup> optional = baseRepository.findById(id);
+
+        return optional.map(this::response).orElseGet(() -> Header.ERROR("데이터가 없음"));
     }
 
     @Override
     public Header<OrderGroupApiResponse> update(Header<OrderGroupApiRequest> request) {
         OrderGroupApiRequest orderGroupApiRequest = request.getData();
 
-        return orderGroupRepository.findById(orderGroupApiRequest.getId())
-                .map(orderGroup -> {
-                    orderGroup.setStatus(orderGroupApiRequest.getStatus())
-                            .setOrderType(orderGroupApiRequest.getOrderType())
-                            .setRevAddress(orderGroupApiRequest.getRevAddress())
-                            .setRevName(orderGroupApiRequest.getRevName())
-                            .setPaymentType(orderGroupApiRequest.getPaymentType())
-                            .setTotalPrice(orderGroupApiRequest.getTotalPrice())
-                            .setTotalQuantity(orderGroupApiRequest.getTotalQuantity())
-                            .setOrderAt(orderGroupApiRequest.getOrderAt())
-                            .setUser(userRepository.getOne(orderGroupApiRequest.getId()));
-            
-                    return orderGroup;
-                })
-                .map(orderGroup -> orderGroupRepository.save(orderGroup))
-                .map(updataOG -> response(updataOG))
+        return baseRepository.findById(orderGroupApiRequest.getId()).map(orderGroup -> {
+            orderGroup.setStatus(orderGroupApiRequest.getStatus()).setOrderType(orderGroupApiRequest.getOrderType())
+                    .setRevAddress(orderGroupApiRequest.getRevAddress()).setRevName(orderGroupApiRequest.getRevName())
+                    .setPaymentType(orderGroupApiRequest.getPaymentType())
+                    .setTotalPrice(orderGroupApiRequest.getTotalPrice())
+                    .setTotalQuantity(orderGroupApiRequest.getTotalQuantity())
+                    .setOrderAt(orderGroupApiRequest.getOrderAt())
+                    .setUser(userRepository.getOne(orderGroupApiRequest.getId()));
+
+            return orderGroup;
+        }).map(orderGroup -> baseRepository.save(orderGroup)).map(updataOG -> response(updataOG))
                 .orElseGet(() -> Header.ERROR("데이터가 없음"));
     }
 
     @Override
     public Header delete(Long id) {
-        return orderGroupRepository.findById(id)
+        return baseRepository.findById(id)
                 .map(orderGroup -> {
-                    orderGroupRepository.delete(orderGroup);
+                    baseRepository.delete(orderGroup);
                     return Header.OK();
                 }).orElseGet(() -> Header.ERROR("데이터가 없음"));
     }
