@@ -1,5 +1,8 @@
 package com.example.demo.controller.api;
 
+import javax.annotation.PostConstruct;
+
+import com.example.demo.controller.CrudController;
 import com.example.demo.ifs.CrudInterface;
 import com.example.demo.models.network.Header;
 import com.example.demo.models.network.request.ItemApiRequest;
@@ -18,38 +21,42 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+@Slf4j // log 사용을 위해
 @RestController
 @RequestMapping("/api/item")
-public class ItemApiController implements CrudInterface<ItemApiRequest, ItemApiResponse> {
+public class ItemApiController extends CrudController<ItemApiRequest, ItemApiResponse> {
 
     @Autowired
     private ItemApiLogicService itemApiLogicService;
 
-    @Override
-    @PostMapping("")
-    public Header<ItemApiResponse> create(@RequestBody Header<ItemApiRequest> request) { //RequestBody : json > string
-        log.info("{}", request);
-        return itemApiLogicService.create(request);
-    }
+    @PostConstruct
+    public void init(){ this.baseService = itemApiLogicService; }
 
-    @Override
-    @GetMapping("{id}")
-    public Header<ItemApiResponse> read(@PathVariable(name = "id") Long id) {
-        return itemApiLogicService.read(id);
-    }
+    // -- CrudController을 상속받아서 밑에 다 필요가 없다~!! --
 
-    @Override
-    @PutMapping("")
-    public Header<ItemApiResponse> update(@RequestBody Header<ItemApiRequest> request) {
-        return itemApiLogicService.update(request);
-    }
+    //@Override
+    //@PostMapping("")
+    //public Header<ItemApiResponse> create(@RequestBody Header<ItemApiRequest> request) { //RequestBody : json > string
+    //    log.info("{}", request);
+    //    return itemApiLogicService.create(request);
+    //}
 
-    @Override
-    @DeleteMapping("{id}")
-    public Header delete(@PathVariable(name = "id") Long id) {
-        // TODO Auto-generated method stub
-        return itemApiLogicService.delete(id);
-    }
-    
+    //@Override
+    //@GetMapping("{id}")
+    //public Header<ItemApiResponse> read(@PathVariable(name = "id") Long id) {
+    //    return itemApiLogicService.read(id);
+    //}
+
+    //@Override
+    //@PutMapping("")
+    //public Header<ItemApiResponse> update(@RequestBody Header<ItemApiRequest> request) {
+    //    return itemApiLogicService.update(request);
+    //}
+
+    //@Override
+    //@DeleteMapping("{id}")
+    //public Header delete(@PathVariable(name = "id") Long id) {
+    //    // TODO Auto-generated method stub
+    //    return itemApiLogicService.delete(id);
+    //}
 }
