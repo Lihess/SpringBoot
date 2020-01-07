@@ -2,6 +2,8 @@ package com.example.demo.repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -33,5 +35,11 @@ public class OrderGroupRepositoryTest extends DemoApplicationTests{
 
         OrderGroup newOrderGroup = orderGroupRepository.save(orderGroup);
         Assert.assertNotNull(newOrderGroup);
+    }
+
+    @Test
+    public void read(){
+        List<OrderGroup> optional = orderGroupRepository.findAll();
+        System.out.println(optional);
     }
 }
