@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.models.entity.User;
+import com.example.demo.models.enumclass.UserStatus;
 
 import org.junit.Test; 
 import org.junit.Assert;  
@@ -28,7 +29,7 @@ public class UserRepositoryTest extends DemoApplicationTests{
 
         user.setAccount(account);
         user.setPassword(password);
-        user.setStatus(status);
+        user.setStatus(UserStatus.REGISTERED);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registeredAt);

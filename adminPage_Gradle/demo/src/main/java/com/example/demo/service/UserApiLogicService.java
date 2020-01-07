@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import com.example.demo.models.entity.User;
-
+import com.example.demo.models.enumclass.UserStatus;
 import com.example.demo.ifs.CrudInterface;
 import com.example.demo.models.network.Header;
 import com.example.demo.models.network.request.UserApiRequest;
@@ -27,7 +27,7 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
         User user = User.builder()
                         .account(userApiRequest.getAccount())
                         .password(userApiRequest.getPassword())
-                        .status("REGISTERED")
+                        .status(UserStatus.REGISTERED)
                         .phoneNumber(userApiRequest.getPhoneNumber())
                         .email(userApiRequest.getEmail())
                         .registeredAt(LocalDateTime.now())
@@ -55,7 +55,7 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
         return optional.map(user -> {
             user.setAccount(userApiRequest.getAccount())
                 .setPassword(userApiRequest.getPassword())
-                .setStatus(userApiRequest.getStatus())
+                .setStatus(userApiRequest.getStatus()) // 다만 이상한 값이 들어오면 에러 발생
                 .setPhoneNumber(userApiRequest.getPhoneNumber())
                 .setRegisteredAt(userApiRequest.getRegisteredAt())
                 .setUnregisteredAt(userApiRequest.getUnregisteredAt());
@@ -85,7 +85,7 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
                                                             .password(user.getPassword())
                                                             .email(user.getEmail())
                                                             .phoneNumber(user.getPhoneNumber())
-                                                            .status(user.getStatus())
+                                                            .status(UserStatus.REGISTERED)
                                                             .registeredAt(user.getRegisteredAt())
                                                             .unregisteredAt(user.getUnregisteredAt())
                                                             .build();

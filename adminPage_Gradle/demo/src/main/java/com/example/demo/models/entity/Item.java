@@ -6,12 +6,16 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.example.demo.models.enumclass.ItemStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,7 +42,8 @@ public class Item{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status; // 등록, 해지, 대기중(검수중)
 
     private String name;
     

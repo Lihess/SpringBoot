@@ -6,11 +6,15 @@ import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.example.demo.models.enumclass.UserStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +28,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 @Builder // User.bulider().account(accuont).status(status).bulid() 와 같이 사용하여 객체생성! 이럴 경우, 생성자가 많아지는 문제를 해결할 수 있다.
 @Accessors(chain = true) // user.setAccut().setStatus()..와 같이 한번에 데이터 변경 가능
 @Data
@@ -42,10 +47,11 @@ public class User{
     
     private String password;
 
-    private String status;
-
-    private String email;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
     
+    private String email;
+
     private String phoneNumber;
     // sql에서는 phone_number과 같이 표기하는 데, java에서의 표기법을 보고 자동으로 sql과 매칭해줌
     

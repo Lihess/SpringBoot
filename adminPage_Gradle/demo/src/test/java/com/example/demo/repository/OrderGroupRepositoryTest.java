@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.models.entity.OrderGroup;
+import com.example.demo.models.enumclass.OrderType;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class OrderGroupRepositoryTest extends DemoApplicationTests{
     public void create(){
         OrderGroup orderGroup = new OrderGroup();
         orderGroup.setStatus("COMPLETE");
-        orderGroup.setOrderType("ALL");
+        orderGroup.setOrderType(OrderType.ALL);
         orderGroup.setRevAddress("서울시 강남구");
         orderGroup.setRevName("홍길동");
         orderGroup.setPaymentType("CARD");

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.models.entity.Item;
+import com.example.demo.models.enumclass.ItemStatus;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +19,7 @@ public class ItemRepositoryTest extends DemoApplicationTests{
     @Test
     public void create(){
         Item item = new Item();
-        item.setStatus("UNRESUATERED");
+        item.setStatus(ItemStatus.UNREGISTERED);
         item.setName("삼성 노트북");
         item.setTitle("삼성 노트북 A100");
         item.setContent("삼성");
