@@ -4,9 +4,13 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.example.demo.models.enumclass.Status;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -37,7 +41,8 @@ public class AdminUser{
     
     private String password;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     private String role;
     
