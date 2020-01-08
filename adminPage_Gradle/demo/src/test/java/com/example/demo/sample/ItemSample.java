@@ -2,7 +2,7 @@ package com.example.demo.sample;
 
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.models.entity.Partner;
-import com.example.demo.models.enumclass.ItemStatus;
+import com.example.demo.models.enumclass.Status;
 import com.example.demo.models.entity.Category;
 import com.example.demo.models.entity.Item;
 import com.example.demo.repository.CategoryRepository;
@@ -57,7 +57,7 @@ public class ItemSample extends DemoApplicationTests {
 
             for(int i = 1 ; i < 6; i ++){
                 int div = (random.nextInt(10)+1) % 2;
-                ItemStatus status = (div == 0 ? ItemStatus.REGISTERED : ItemStatus.UNREGISTERED);
+                Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
                 Item item = Item.builder()
                         .partner(p)
@@ -68,7 +68,7 @@ public class ItemSample extends DemoApplicationTests {
                         .content(p.getName()+"의 가전제품"+i+"호"+"의 가전제품 입니다. 2019년도 신제품 입니다")
                         .brandName(p.getName())
                         .registeredAt(getRandomDate())
-                        .unregisteredAt(status.equals(ItemStatus.UNREGISTERED) ? getRandomDate() : null )
+                        .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                         .build();
 
                 itemRepository.save(item);
@@ -87,7 +87,7 @@ public class ItemSample extends DemoApplicationTests {
 
             for(int i = 1 ; i < 6; i ++){
                 int div = (random.nextInt(10)+1) % 2;
-                ItemStatus status = (div == 0 ? ItemStatus.REGISTERED : ItemStatus.UNREGISTERED);
+                Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
                 Item item = Item.builder()
                         .partner(p)
@@ -98,7 +98,7 @@ public class ItemSample extends DemoApplicationTests {
                         .content(p.getName()+"의 의류제품"+i+"호"+"의 겨울 상품 입니다. 2029년도 신제품 입니다")
                         .brandName(p.getName())
                         .registeredAt(getRandomDate())
-                        .unregisteredAt(status.equals(ItemStatus.UNREGISTERED) ? getRandomDate() : null )
+                        .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                         .build();
                 itemRepository.save(item);
             }
@@ -117,7 +117,7 @@ public class ItemSample extends DemoApplicationTests {
 
             for(int i = 1 ; i < 6; i ++){
                 int div = (random.nextInt(10)+1) % 2;
-                ItemStatus status = (div == 0 ? ItemStatus.REGISTERED : ItemStatus.UNREGISTERED);
+                Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
                 Item item = Item.builder()
                         .partner(p)
@@ -128,7 +128,7 @@ public class ItemSample extends DemoApplicationTests {
                         .content(p.getName()+"의 XX 제품"+i+"호"+"의 여러가지 상품 입니다. 2021년도 신제품 입니다")
                         .brandName(p.getName())
                         .registeredAt(getRandomDate())
-                        .unregisteredAt(status.equals(ItemStatus.UNREGISTERED) ? getRandomDate() : null )
+                        .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                         .build();
                 itemRepository.save(item);
             }
@@ -146,7 +146,7 @@ public class ItemSample extends DemoApplicationTests {
 
             for(int i = 1 ; i < 6; i ++){
                 int div = (random.nextInt(10)+1) % 2;
-                ItemStatus status = (div == 0 ? ItemStatus.REGISTERED : ItemStatus.UNREGISTERED);
+                Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
                 Item item = Item.builder()
                         .partner(p)
@@ -157,7 +157,7 @@ public class ItemSample extends DemoApplicationTests {
                         .content(p.getName()+"의 가구"+i+"호"+"의 원룸에 들어가는. 2023년도 신제품 입니다")
                         .brandName(p.getName())
                         .registeredAt(getRandomDate())
-                        .unregisteredAt(status.equals(ItemStatus.UNREGISTERED) ? getRandomDate() : null )
+                        .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                         .build();
                 itemRepository.save(item);
             }
@@ -175,7 +175,7 @@ public class ItemSample extends DemoApplicationTests {
 
             for(int i = 1 ; i < 6; i ++){
                 int div = (random.nextInt(10)+1) % 2;
-                ItemStatus status = (div == 0 ? ItemStatus.REGISTERED : ItemStatus.UNREGISTERED);
+                Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
                 Item item = Item.builder()
                         .partner(p)
@@ -186,7 +186,7 @@ public class ItemSample extends DemoApplicationTests {
                         .content(p.getName()+"의 제빵"+i+"호"+"의 생일 케이크 입니다")
                         .brandName(p.getName())
                         .registeredAt(getRandomDate())
-                        .unregisteredAt(status.equals(ItemStatus.UNREGISTERED) ? getRandomDate() : null )
+                        .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                         .build();
                 itemRepository.save(item);
             }
@@ -204,7 +204,7 @@ public class ItemSample extends DemoApplicationTests {
 
             for(int i = 1 ; i < 6; i ++){
                 int div = (random.nextInt(10)+1) % 2;
-                ItemStatus status = (div == 0 ? ItemStatus.REGISTERED : ItemStatus.UNREGISTERED);
+                Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
                 Item item = Item.builder()
                         .partner(p)
@@ -215,7 +215,7 @@ public class ItemSample extends DemoApplicationTests {
                         .content(p.getName()+"의 겨울 스포츠"+i+"호"+"의 스키 상품 입니다")
                         .brandName(p.getName())
                         .registeredAt(getRandomDate())
-                        .unregisteredAt(status.equals(ItemStatus.UNREGISTERED) ? getRandomDate() : null )
+                        .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                         .build();
                 itemRepository.save(item);
             }
@@ -233,7 +233,7 @@ public class ItemSample extends DemoApplicationTests {
 
             for(int i = 1 ; i < 6; i ++){
                 int div = (random.nextInt(10)+1) % 2;
-                ItemStatus status = (div == 0 ? ItemStatus.REGISTERED : ItemStatus.UNREGISTERED);
+                Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
                 Item item = Item.builder()
                         .partner(p)
@@ -244,7 +244,7 @@ public class ItemSample extends DemoApplicationTests {
                         .content(p.getName()+"의 OO상품"+i+"호"+"의 EE 상품 입니다")
                         .brandName(p.getName())
                         .registeredAt(getRandomDate())
-                        .unregisteredAt(status.equals(ItemStatus.UNREGISTERED) ? getRandomDate() : null )
+                        .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                         .build();
                 itemRepository.save(item);
             }
@@ -263,7 +263,7 @@ public class ItemSample extends DemoApplicationTests {
 
             for(int i = 1 ; i < 6; i ++){
                 int div = (random.nextInt(10)+1) % 2;
-                ItemStatus status = (div == 0 ? ItemStatus.REGISTERED : ItemStatus.UNREGISTERED);
+                Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
                 Item item = Item.builder()
                         .partner(p)
@@ -274,7 +274,7 @@ public class ItemSample extends DemoApplicationTests {
                         .content(p.getName()+"의 면세상품"+i+"호"+"의 면세 상품 입니다")
                         .brandName(p.getName())
                         .registeredAt(getRandomDate())
-                        .unregisteredAt(status.equals(ItemStatus.UNREGISTERED) ? getRandomDate() : null )
+                        .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                         .build();
                 itemRepository.save(item);
             }
@@ -293,7 +293,7 @@ public class ItemSample extends DemoApplicationTests {
 
             for(int i = 1 ; i < 6; i ++){
                 int div = (random.nextInt(10)+1) % 2;
-                ItemStatus status = (div == 0 ? ItemStatus.REGISTERED : ItemStatus.UNREGISTERED);
+                Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
                 Item item = Item.builder()
                         .partner(p)
@@ -304,7 +304,7 @@ public class ItemSample extends DemoApplicationTests {
                         .content(p.getName()+"의 OO 화장품"+i+"호"+"의 상품 입니다")
                         .brandName(p.getName())
                         .registeredAt(getRandomDate())
-                        .unregisteredAt(status.equals(ItemStatus.UNREGISTERED) ? getRandomDate() : null )
+                        .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                         .build();
                 itemRepository.save(item);
             }

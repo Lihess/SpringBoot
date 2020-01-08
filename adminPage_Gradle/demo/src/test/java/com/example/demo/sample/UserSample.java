@@ -29,7 +29,7 @@ public class UserSample extends DemoApplicationTests {
         for(int i = 1 ; i < 1001; i++){
             // 가입 상태 랜덤
             int div = (random.nextInt(10)+1) % 2;
-            Status status = (div == 0 ? Status.REGISTERED : UserStatus.UNREGISTERED);
+            Status status = (div == 0 ? Status.REGISTERED : Status.UNREGISTERED);
 
             User user = User.builder()
                     .account("TestUser"+i)
