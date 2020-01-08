@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.example.demo.models.enumclass.UserStatus;
+import com.example.demo.models.enumclass.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,7 +48,7 @@ public class User{
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private UserStatus status;
+    private Status status;
     
     private String email;
 

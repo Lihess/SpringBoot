@@ -10,7 +10,7 @@ import java.util.Random;
 
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.models.entity.User;
-import com.example.demo.models.enumclass.UserStatus;
+import com.example.demo.models.enumclass.Status;
 import com.example.demo.repository.UserRepository;
 
 @Slf4j
@@ -29,7 +29,7 @@ public class UserSample extends DemoApplicationTests {
         for(int i = 1 ; i < 1001; i++){
             // 가입 상태 랜덤
             int div = (random.nextInt(10)+1) % 2;
-            UserStatus status = (div == 0 ? UserStatus.REGISTERED : UserStatus.UNREGISTERED);
+            Status status = (div == 0 ? Status.REGISTERED : UserStatus.UNREGISTERED);
 
             User user = User.builder()
                     .account("TestUser"+i)
@@ -38,7 +38,7 @@ public class UserSample extends DemoApplicationTests {
                     .email("TestUser"+i+"@gmail.com")
                     .phoneNumber("010-1111-"+String.format("%04d", i))
                     .registeredAt(getRandomDate())
-                    .unregisteredAt(status.equals(UserStatus.UNREGISTERED) ? getRandomDate() : null )
+                    .unregisteredAt(status.equals(Status.UNREGISTERED) ? getRandomDate() : null )
                     .build();
 
             log.info("{}",user);

@@ -3,7 +3,7 @@ package com.example.demo.models.network.response;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.demo.models.enumclass.UserStatus;
+import com.example.demo.models.enumclass.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class UserApiResponse{
     private Long id;
     private String account;
     private String password; 
-    private UserStatus status;
+    private Status status;
     private String email;
     private String phoneNumber;
     private LocalDateTime registeredAt;

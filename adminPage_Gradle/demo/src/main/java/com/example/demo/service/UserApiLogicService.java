@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import com.example.demo.models.entity.OrderGroup;
 import com.example.demo.models.entity.User;
-import com.example.demo.models.enumclass.UserStatus;
+import com.example.demo.models.enumclass.Status;
 import com.example.demo.ifs.CrudInterface;
 import com.example.demo.models.network.Header;
 import com.example.demo.models.network.request.UserApiRequest;
@@ -47,7 +47,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
         User user = User.builder()
                         .account(userApiRequest.getAccount())
                         .password(userApiRequest.getPassword())
-                        .status(UserStatus.REGISTERED)
+                        .status(Status.REGISTERED)
                         .phoneNumber(userApiRequest.getPhoneNumber())
                         .email(userApiRequest.getEmail())
                         .registeredAt(LocalDateTime.now())
@@ -107,7 +107,7 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
                                                             .password(user.getPassword())
                                                             .email(user.getEmail())
                                                             .phoneNumber(user.getPhoneNumber())
-                                                            .status(UserStatus.REGISTERED)
+                                                            .status(Status.REGISTERED)
                                                             .registeredAt(user.getRegisteredAt())
                                                             .unregisteredAt(user.getUnregisteredAt())
                                                             .build();

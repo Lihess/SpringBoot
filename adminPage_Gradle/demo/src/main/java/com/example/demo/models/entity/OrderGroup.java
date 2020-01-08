@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.example.demo.models.enumclass.OrderType;
+import com.example.demo.models.enumclass.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

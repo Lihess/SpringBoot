@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.example.demo.models.entity.Partner;
 import com.example.demo.models.network.Header;
@@ -9,6 +10,7 @@ import com.example.demo.models.network.response.PartnerApiResponse;
 import com.example.demo.repository.CategoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 
 public class PartenerApiLoginService extends BaseService<PartnerApiRequest, PartnerApiResponse, Partner> {
     @Autowired
@@ -36,9 +38,7 @@ public class PartenerApiLoginService extends BaseService<PartnerApiRequest, Part
 
     @Override
     public Header<PartnerApiResponse> read(Long id) {
-        return baseRepository.findById(id)
-                .map(this::response)
-                .orElseGet(() -> Header.ERROR("데이터 없음"));
+        return baseRepository.findById(id).map(this::response).orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
@@ -47,8 +47,7 @@ public class PartenerApiLoginService extends BaseService<PartnerApiRequest, Part
 
         return baseRepository.findById(body.getId())
                 .map(partner -> {
-                    partner.setName(body.getName())
-                            .setStatus(body.getStatus())
+                    partner.setName(body.getName()).setStatus(body.getStatus())
                             .setAddress(body.getAddress())
                             .setCallCenter(body.getCallCenter())
                             .setPartnerNumber(body.getPartnerNumber())
@@ -57,25 +56,22 @@ public class PartenerApiLoginService extends BaseService<PartnerApiRequest, Part
                             .setRegisteredAt(body.getRegisteredAt())
                             .setUnregisteredAt(body.getUnregisteredAt())
                             .setCategory(categoryRepository.getOne(body.getCategoryId()));
-                    
+
                     return partner;
-                    }).map(partner -> baseRepository.save(partner))
-                    .map(updatePartner -> response(updatePartner))
-                    .orElseGet(() -> Header.ERROR("데이터 없음"));
+                }).map(partner -> baseRepository.save(partner)).map(updatePartner -> response(updatePartner))
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
 
     }
 
     @Override
     public Header delete(Long id) {
-        // TODO Auto-generated method stub
-        return  baseRepository.findById(id)
-                .map(partner -> {
-                    baseRepository.delete(partner);
-                    return Header.OK();
-                }).orElseGet(() -> Header.ERROR("데이터 없음"));
+        return baseRepository.findById(id).map(partner -> {
+            baseRepository.delete(partner);
+            return Header.OK();
+        }).orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
-    private Header<PartnerApiResponse> response(Partner partner){
+    private Header<PartnerApiResponse> response(Partner partner) {
         PartnerApiResponse body = PartnerApiResponse.builder()
                                                     .id(partner.getId())
                                                     .name(partner.getName())
@@ -89,7 +85,13 @@ public class PartenerApiLoginService extends BaseService<PartnerApiRequest, Part
                                                     .unregisteredAt(partner.getUnregisteredAt())
                                                     .categoryId(partner.getCategory().getId())
                                                     .build();
-        
+
         return Header.OK(body);
+    }
+
+    @Override
+    public Header<List<PartnerApiResponse>> search(Pageable pageable) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

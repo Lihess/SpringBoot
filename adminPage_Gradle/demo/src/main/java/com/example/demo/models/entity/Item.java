@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.example.demo.models.enumclass.ItemStatus;
+import com.example.demo.models.enumclass.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,7 +43,7 @@ public class Item{
     private Long id;
     
     @Enumerated(EnumType.STRING)
-    private ItemStatus status; // 등록, 해지, 대기중(검수중)
+    private Status status; // 등록, 해지, 대기중(검수중)
 
     private String name;
     

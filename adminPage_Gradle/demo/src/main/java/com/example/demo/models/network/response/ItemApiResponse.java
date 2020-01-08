@@ -3,7 +3,7 @@ package com.example.demo.models.network.response;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.example.demo.models.enumclass.ItemStatus;
+import com.example.demo.models.enumclass.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ItemApiResponse{
     private Long id;
-    private ItemStatus status;
+    private Status status;
     private String name;
     private String title;
     private String content;
