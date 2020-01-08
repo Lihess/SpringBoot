@@ -1,8 +1,13 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import com.example.demo.ifs.CrudInterface;
+import com.example.demo.models.network.Header;
+import com.example.demo.models.network.response.UserApiResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
