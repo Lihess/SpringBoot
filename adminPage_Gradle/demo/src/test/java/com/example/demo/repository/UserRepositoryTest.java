@@ -20,7 +20,6 @@ public class UserRepositoryTest extends DemoApplicationTests{
     public void create(){
         String account = "Test03";
         String password = "Test01";
-        String status = "REGISTERED";
         String email = "Test@gmail.com";
         String phoneNumber = "010-1111-3333";
         LocalDateTime registeredAt = LocalDateTime.now();
