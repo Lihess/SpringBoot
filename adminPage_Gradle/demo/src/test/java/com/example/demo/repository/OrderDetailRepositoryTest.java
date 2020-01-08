@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.models.entity.OrderDetail;
+import com.example.demo.models.enumclass.Status;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class OrderDetailRepositoryTest extends DemoApplicationTests{
         OrderDetail orderDetail = new OrderDetail();
         //orderDetail.setOrderGroupId(1L);
         //orderDetail.setItemId(1L);
-        orderDetail.setStatus("WATING");
+        orderDetail.setStatus(Status.WATITNG);
         orderDetail.setArrivalDate(LocalDate.now().plusDays(2)); 
         // 현재에서 이틀 추가
          // 날짜이므로 Date 가 맞음

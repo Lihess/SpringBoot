@@ -6,12 +6,15 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.example.demo.models.entity.OrderGroup.OrderGroupBuilder;
+import com.example.demo.models.enumclass.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,7 +44,8 @@ public class OrderDetail{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     private LocalDate arrivalDate;
 
@@ -71,7 +75,7 @@ public class OrderDetail{
     @ManyToOne
     private OrderGroup orderGroup;
 
-    // orderDetail : Item : 1 : N
+    // orderDetail : Item : N : 1
     @ManyToOne
     private Item item;
 }
