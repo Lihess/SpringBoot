@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.example.demo.models.entity.Partner;
 import com.example.demo.models.network.Header;
@@ -10,6 +12,7 @@ import com.example.demo.models.network.response.PartnerApiResponse;
 import com.example.demo.repository.CategoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public class PartenerApiLoginService extends BaseService<PartnerApiRequest, PartnerApiResponse, Partner> {
@@ -33,12 +36,15 @@ public class PartenerApiLoginService extends BaseService<PartnerApiRequest, Part
                                 .build();
         Partner newPartner = baseRepository.save(partner);
 
-        return response(newPartner);
+        return Header.OK(response(newPartner));
     }
 
     @Override
     public Header<PartnerApiResponse> read(Long id) {
-        return baseRepository.findById(id).map(this::response).orElseGet(() -> Header.ERROR("데이터 없음"));
+        return baseRepository.findById(id)
+                .map(this::response)
+                .map(Header::OK)
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
@@ -58,7 +64,8 @@ public class PartenerApiLoginService extends BaseService<PartnerApiRequest, Part
                             .setCategory(categoryRepository.getOne(body.getCategoryId()));
 
                     return partner;
-                }).map(partner -> baseRepository.save(partner)).map(updatePartner -> response(updatePartner))
+                }).map(partner -> baseRepository.save(partner))
+                .map(updatePartner -> Header.OK(response(updatePartner)))
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
 
     }
@@ -71,7 +78,7 @@ public class PartenerApiLoginService extends BaseService<PartnerApiRequest, Part
         }).orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
-    private Header<PartnerApiResponse> response(Partner partner) {
+    private PartnerApiResponse response(Partner partner) {
         PartnerApiResponse body = PartnerApiResponse.builder()
                                                     .id(partner.getId())
                                                     .name(partner.getName())
@@ -86,12 +93,16 @@ public class PartenerApiLoginService extends BaseService<PartnerApiRequest, Part
                                                     .categoryId(partner.getCategory().getId())
                                                     .build();
 
-        return Header.OK(body);
+        return body;
     }
 
     @Override
     public Header<List<PartnerApiResponse>> search(Pageable pageable) {
-        // TODO Auto-generated method stub
-        return null;
+        Page<Partner> partners = baseRepository.findAll(pageable);
+
+        List<PartnerApiResponse> partnerApiResponseList = partners.stream()
+                                                                    .map(partner -> response(partner))
+                                                                    .collect(Collectors.toList());
+        return Header.OK(partnerApiResponseList);
     }
 }

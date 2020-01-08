@@ -132,11 +132,11 @@ public class UserApiLogicService extends BaseService<UserApiRequest, UserApiResp
         List<OrderGroup> orderGroupList = user.getOrderGroupList();
         List<OrderGroupApiResponse> orderGroupApiResponseList = orderGroupList.stream()
             .map(orderGroup -> {
-                OrderGroupApiResponse orderGroupApiResponse = orderGroupApiLogicService.response(orderGroup).getData();
+                OrderGroupApiResponse orderGroupApiResponse = orderGroupApiLogicService.response(orderGroup);
                 
                 List<ItemApiResponse> itemApiResponseList = orderGroup.getOrderDetailList().stream()
                     .map(detail -> detail.getItem())
-                    .map(item -> itemApiLogicService.response(item).getData())
+                    .map(item -> itemApiLogicService.response(item))
                     .collect(Collectors.toList());
 
                 orderGroupApiResponse.setItemApiResponse(itemApiResponseList);

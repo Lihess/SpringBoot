@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.models.entity.AdminUser;
+import com.example.demo.models.enumclass.Status;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +19,7 @@ public class AdminUserRepositoryTest extends DemoApplicationTests{
         AdminUser adminUser = new AdminUser();
         adminUser.setAccount("AdminUser1");
         adminUser.setPassword("AdminUser1");
-        adminUser.setStatus("REGISTERED");
+        adminUser.setStatus(Status.REGISTERED);
         adminUser.setRole("PARTNER");
 
         AdminUser newAdminUser = adminUserRepository.save(adminUser);

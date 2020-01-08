@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.example.demo.ifs.CrudInterface;
 import com.example.demo.models.entity.OrderGroup;
@@ -13,6 +14,7 @@ import com.example.demo.repository.OrderGroupRepository;
 import com.example.demo.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +33,16 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
                 .user(userRepository.getOne(body.getUserId())).build();
         OrderGroup newOrderGroup = baseRepository.save(orderGroup);
 
-        return response(newOrderGroup);
+        return Header.OK(response(newOrderGroup));
     }
 
     @Override
     public Header<OrderGroupApiResponse> read(Long id) {
         Optional<OrderGroup> optional = baseRepository.findById(id);
 
-        return optional.map(this::response).orElseGet(() -> Header.ERROR("데이터가 없음"));
+        return optional.map(this::response)
+                .map(Header::OK)
+                .orElseGet(() -> Header.ERROR("데이터가 없음"));
     }
 
     @Override
@@ -46,16 +50,19 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
         OrderGroupApiRequest orderGroupApiRequest = request.getData();
 
         return baseRepository.findById(orderGroupApiRequest.getId()).map(orderGroup -> {
-            orderGroup.setStatus(orderGroupApiRequest.getStatus()).setOrderType(orderGroupApiRequest.getOrderType())
-                    .setRevAddress(orderGroupApiRequest.getRevAddress()).setRevName(orderGroupApiRequest.getRevName())
-                    .setPaymentType(orderGroupApiRequest.getPaymentType())
-                    .setTotalPrice(orderGroupApiRequest.getTotalPrice())
-                    .setTotalQuantity(orderGroupApiRequest.getTotalQuantity())
-                    .setOrderAt(orderGroupApiRequest.getOrderAt())
-                    .setUser(userRepository.getOne(orderGroupApiRequest.getId()));
+                orderGroup.setStatus(orderGroupApiRequest.getStatus())
+                        .setOrderType(orderGroupApiRequest.getOrderType())
+                        .setRevAddress(orderGroupApiRequest.getRevAddress())
+                        .setRevName(orderGroupApiRequest.getRevName())
+                        .setPaymentType(orderGroupApiRequest.getPaymentType())
+                        .setTotalPrice(orderGroupApiRequest.getTotalPrice())
+                        .setTotalQuantity(orderGroupApiRequest.getTotalQuantity())
+                        .setOrderAt(orderGroupApiRequest.getOrderAt())
+                        .setUser(userRepository.getOne(orderGroupApiRequest.getId()));
 
-            return orderGroup;
-        }).map(orderGroup -> baseRepository.save(orderGroup)).map(updataOG -> response(updataOG))
+                    return orderGroup;
+                }).map(orderGroup -> baseRepository.save(orderGroup))
+                .map(updataOG -> Header.OK(response(updataOG)))
                 .orElseGet(() -> Header.ERROR("데이터가 없음"));
     }
 
@@ -67,20 +74,24 @@ public class OrderGroupApiLogicService extends BaseService<OrderGroupApiRequest,
         }).orElseGet(() -> Header.ERROR("데이터가 없음"));
     }
 
-    public Header<OrderGroupApiResponse> response(OrderGroup orderGroup) {
+    public OrderGroupApiResponse response(OrderGroup orderGroup) {
         OrderGroupApiResponse body = OrderGroupApiResponse.builder().id(orderGroup.getId())
                 .status(orderGroup.getStatus()).orderType(orderGroup.getOrderType())
                 .revAddress(orderGroup.getRevAddress()).revName(orderGroup.getRevName())
                 .paymentType(orderGroup.getPaymentType()).totalPrice(orderGroup.getTotalPrice())
                 .totalQuantity(orderGroup.getTotalQuantity()).orderAt(orderGroup.getOrderAt())
                 .arrivalDate(orderGroup.getArrivalDate()).userId(orderGroup.getUser().getId()).build();
-        return Header.OK(body);
+        return body;
     }
 
     @Override
     public Header<List<OrderGroupApiResponse>> search(Pageable pageable) {
-        // TODO Auto-generated method stub
-        return null;
+        Page<OrderGroup> orderGroups = baseRepository.findAll(pageable); 
+
+        List<OrderGroupApiResponse> orderGroupApiResponseList = orderGroups.stream()
+                                                                            .map(orderGroup -> response(orderGroup))
+                                                                            .collect(Collectors.toList());
+        return Header.OK(orderGroupApiResponseList);
     }
     
 }

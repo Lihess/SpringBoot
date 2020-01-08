@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.example.demo.models.entity.Category;
 import com.example.demo.models.network.Header;
 import com.example.demo.models.network.request.CategoryApiRequest;
 import com.example.demo.models.network.response.CategoryApiResponse;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -61,8 +63,12 @@ public class CategoryApiLogicService extends BaseService<CategoryApiRequest, Cat
 
     @Override
     public Header<List<CategoryApiResponse>> search(Pageable pageable) {
-        // TODO Auto-generated method stub
-        return null;
+        Page<Category> categorys = baseRepository.findAll(pageable);
+
+        List<CategoryApiResponse> categoryApiResponseList = categorys.stream()
+                                                                    .map(category -> response(category))
+                                                                    .collect(Collectors.toList());
+        return Header.OK(categoryApiResponseList);
     }
     
     public CategoryApiResponse response(Category category){
