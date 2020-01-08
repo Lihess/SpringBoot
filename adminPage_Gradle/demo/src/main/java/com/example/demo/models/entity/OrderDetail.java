@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.example.demo.models.entity.OrderGroup.OrderGroupBuilder;
-import com.example.demo.models.enumclass.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,8 +43,7 @@ public class OrderDetail{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    private String status;
 
     private LocalDate arrivalDate;
 

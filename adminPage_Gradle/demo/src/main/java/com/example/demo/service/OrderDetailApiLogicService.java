@@ -42,7 +42,8 @@ public class OrderDetailApiLogicService extends BaseService<OrderDetailApiReques
     public Header<OrderDetailApiResponse> read(Long id) {
         return baseRepository.findById(id)
                 .map(this::response)
-                .orElseGet(() -> Header.ERROR("데이터 없음")))   ;
+                .map(Header::OK)
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
