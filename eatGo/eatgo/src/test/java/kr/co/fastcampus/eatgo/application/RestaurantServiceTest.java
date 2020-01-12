@@ -52,7 +52,7 @@ public class RestaurantServiceTest {
         List<MenuItem> menuItems = new ArrayList<>();
         menuItems.add(new MenuItem("Kimchi"));
         
-        given(menuItemRepository.findAllByRestauranId(1004L)).willReturn(menuItems);
+        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
     }
     @Test
     public void getRestaurants(){
