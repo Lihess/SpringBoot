@@ -14,8 +14,10 @@ public class RestaurantService {
     private RestaurantRepository restaurantRepository;
 
     private MenuItemRepository menuItemRepository;
-    public RestaurantService(RestaurantRepository restaurantRepository){
+
+    public RestaurantService(RestaurantRepository restaurantRepository, MenuItemRepository menuItemRepository){
         this.restaurantRepository = restaurantRepository;
+        this.menuItemRepository = menuItemRepository;
     }
 
     public Restaurant getRestaurant(Long id){

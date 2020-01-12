@@ -18,4 +18,8 @@ public class MenuItem{
     private Long id;
     private String name;
     private Long restaurantId;
+
+    public MenuItem(String name){
+        this.name = name;
+    }
 }
