@@ -1,12 +1,13 @@
 package kr.co.fastcampus.eatgo.domain;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import kr.co.fastcampus.eatgo.domain.Restaurant;
 
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
-
+public interface RestaurantRepository extends CrudRepository<Restaurant, Long>{
+    List<Restaurant> findAll();
 }

@@ -4,28 +4,36 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.fastcampus.eatgo.domain.MenuItem;
+import kr.co.fastcampus.eatgo.domain.MenuItemRepository;
 import kr.co.fastcampus.eatgo.domain.Restaurant;
 import kr.co.fastcampus.eatgo.domain.RestaurantRepository;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.is;
 
 @Service
 public class RestaurantService {
     private RestaurantRepository restaurantRepository;
 
+    private MenuItemRepository menuItemRepository;
     public RestaurantService(RestaurantRepository restaurantRepository){
         this.restaurantRepository = restaurantRepository;
     }
 
     public Restaurant getRestaurant(Long id){
-        return restaurantRepository.findById(id);
+        Restaurant restaurant =  restaurantRepository.findById(id).orElse(null);
+        
+        List<MenuItem> menuItems = menuItemRepository.findAllByRestauranId(id);
+        restaurant.setMenuItems(menuItems);
+
+        return restaurant;
     }
 
-    public void getRestaurants(){
+    public List<Restaurant> getRestaurants(){
         List<Restaurant> restaurants = restaurantRepository.findAll();
-        Restaurant restaurant = restaurants.get(0);
         
-        assertThat(restaurant.getId(), is(1004L));
+        return restaurants;
+    }
+
+    public Restaurant addRestaurant(Restaurant restaurant){
+        return restaurantRepository.save(restaurant);
     }
 }
