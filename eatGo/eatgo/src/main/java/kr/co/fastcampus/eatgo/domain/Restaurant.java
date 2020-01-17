@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,11 @@ public class Restaurant{
     @Id
     @GeneratedValue
     private Long id;
+
+    @NotNull
     private String name;
+
+    @NotNull
     private String address;
 
     @Transient // 임시, DB에 저장되지 않음
