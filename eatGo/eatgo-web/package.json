@@ -2,8 +2,9 @@
   "name": "eatgo-web",
   "version": "1.0.0",
   "description": "EatGo Web",
-  "main": "src/index.js",
+  "main": "src/index.html",
   "scripts": {
+    "start" : "webpack-dev-server --port 3000",
     "test": "jest"
   },
   "author": "",
