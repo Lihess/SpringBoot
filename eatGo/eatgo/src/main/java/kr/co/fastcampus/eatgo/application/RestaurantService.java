@@ -2,6 +2,8 @@ package kr.co.fastcampus.eatgo.application;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import kr.co.fastcampus.eatgo.domain.MenuItem;
@@ -37,5 +39,15 @@ public class RestaurantService {
 
     public Restaurant addRestaurant(Restaurant restaurant){
         return restaurantRepository.save(restaurant);
+    }
+
+    @Transactional // 원자적으로 실행되도록.
+	public Restaurant updateRestaurant(long id, String name, String address) {
+        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+        
+        restaurant.setName(name);
+        restaurant.setAddress(address);
+
+        return restaurant;
     }
 }

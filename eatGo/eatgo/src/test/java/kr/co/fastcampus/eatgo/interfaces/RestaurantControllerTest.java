@@ -19,6 +19,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
@@ -87,5 +88,15 @@ public class RestaurantControllerTest {
     
         // 생성되었는지 확인하는 과정.
         verify(restaurantService).addRestaurant(any()); 
+    }
+
+    @Test
+    public void update() throws Exception {
+        mvc.perform(patch("/restaurants/1004")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("\"name\":\"Bo bar\",\"address\":\"Seoul\""))
+            .andExpect(status().isOk());
+        
+            verify(restaurantService).updateRestaurant(1004L, "Bo Bar", "Seoul");
     }
 }
