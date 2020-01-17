@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Restaurant{
     @Id
     @GeneratedValue
@@ -24,25 +26,11 @@ public class Restaurant{
     private String address;
 
     @Transient // 임시, DB에 저장되지 않음
-    private List<MenuItem> menuItems = new ArrayList<MenuItem>();    
-
-    public Restaurant(String name, String address){
-        this.name = name;
-        this.address = address;
-    }
-
-    public Restaurant(Long id, String name, String address){
-        this.id = id;
-        this.name = name;
-        this.address = address;
-    }
+    private List<MenuItem> menuItems;
 
     public void addMenuItem(MenuItem menuItem){
+        if(menuItems == null)
+            menuItems = new ArrayList<>();
         menuItems.add(menuItem);
-    }
-
-    public void setMenuItems(List<MenuItem> menuItems){
-        for(MenuItem menuItem : menuItems)
-            addMenuItem(menuItem);
     }
 }

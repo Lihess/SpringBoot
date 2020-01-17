@@ -39,11 +39,10 @@ public class RestaurantController {
 
     @PostMapping("/restaurants")
     public ResponseEntity<?> create(@RequestBody Restaurant resource) throws URISyntaxException {
-        String name = resource.getName();
-        String address = resource.getAddress();
-
-        Restaurant restaurant = new Restaurant(1234L, name, address);
-        restaurantService.addRestaurant(restaurant);
+        Restaurant restaurant = restaurantService.addRestaurant(Restaurant.builder()
+                                                .name(resource.getName())
+                                                .address(resource.getAddress())
+                                                .build());
 
         // 해당 URL의 주소로 바디에 내용을 넣어서 응답으로 보냄.
         URI location = new URI("/restaurants/" + restaurant.getId());
@@ -56,6 +55,6 @@ public class RestaurantController {
         String address = resource.getAddress();
 
         restaurantService.updateRestaurant(id, name, address);
-        return "";
+        return "{}";
     }
 }

@@ -41,7 +41,11 @@ public class RestaurantControllerTest {
     @Test
     public void list() throws Exception {
         List<Restaurant> restaurants = new ArrayList<>();
-        restaurants.add(new Restaurant(1004L, "Bob Zip", "Seoul")); // 가짜 객체 생성.
+        restaurants.add(Restaurant.builder()
+                                    .id(1004L)
+                                    .name("Bob Zip")
+                                    .address("Seoul")
+                                    .build()); // 가짜 객체 생성.
         
         given(restaurantService.getRestaurants()).willReturn(restaurants);
 
@@ -58,8 +62,12 @@ public class RestaurantControllerTest {
 
     @Test
     public void detail() throws Exception{
-        Restaurant restaurant =  new Restaurant(1004L, "Bob Zip", "Seoul");
-        restaurant.addMenuItem(new MenuItem("Kimchi"));
+        Restaurant restaurant =  Restaurant.builder()
+                                            .id(1004L)
+                                            .name("Bob Zip")
+                                            .address("Seoul")
+                                            .build();
+        restaurant.addMenuItem(MenuItem.builder().name("Kimchi").build());
         given(restaurantService.getRestaurant(1004L)).willReturn(restaurant);
 
         mvc.perform(get("/restaurants/1004"))
@@ -77,8 +85,6 @@ public class RestaurantControllerTest {
 
     @Test
     public void create() throws Exception{
-        Restaurant restaurant = new Restaurant(1234L, "BeRyong", "Seoul");
-    
         mvc.perform(post("/restaurants")
             .contentType(MediaType.APPLICATION_JSON)
             .content("{\"name\":\"BeRyong\",\"addresdd\":\"Seoul\"}"))
@@ -94,7 +100,7 @@ public class RestaurantControllerTest {
     public void update() throws Exception {
         mvc.perform(patch("/restaurants/1004")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("\"name\":\"Bo bar\",\"address\":\"Seoul\""))
+            .content("\"name\":\"Bo Bar\",\"address\":\"Seoul\""))
             .andExpect(status().isOk());
         
             verify(restaurantService).updateRestaurant(1004L, "Bo Bar", "Seoul");
