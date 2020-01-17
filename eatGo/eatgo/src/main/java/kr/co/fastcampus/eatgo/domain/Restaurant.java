@@ -26,6 +26,11 @@ public class Restaurant{
     @Transient // 임시, DB에 저장되지 않음
     private List<MenuItem> menuItems = new ArrayList<MenuItem>();    
 
+    public Restaurant(String name, String address){
+        this.name = name;
+        this.address = address;
+    }
+
     public Restaurant(Long id, String name, String address){
         this.id = id;
         this.name = name;

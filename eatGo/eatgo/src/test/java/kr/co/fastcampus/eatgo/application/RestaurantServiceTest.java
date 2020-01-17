@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 import kr.co.fastcampus.eatgo.domain.MenuItem;
@@ -69,5 +70,16 @@ public class RestaurantServiceTest {
 
         MenuItem menuItem = restaurant.getMenuItems().get(0);
         assertThat(menuItem.getName()).isEqualTo("Kimchi");
+    }
+
+    @Test
+    public void addRestaurant(){
+        Restaurant restaurant = new Restaurant("BeRyong", "Seoul");
+        Restaurant newRestaurant = new Restaurant(1234L, "BeRyong", "Seoul");
+
+        given(restaurantRepository.save(any())).willReturn(newRestaurant);
+
+        Restaurant newa = restaurantService.addRestaurant(restaurant);
+        assertThat(newa.getId(), is(1234L));
     }
 }
