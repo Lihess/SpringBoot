@@ -18,6 +18,7 @@ import static org.mockito.BDDMockito.given;
 import kr.co.fastcampus.eatgo.domain.MenuItem;
 import kr.co.fastcampus.eatgo.domain.MenuItemRepository;
 import kr.co.fastcampus.eatgo.domain.Restaurant;
+import kr.co.fastcampus.eatgo.domain.RestaurantNotFoundException;
 import kr.co.fastcampus.eatgo.domain.RestaurantRepository;
 
 public class RestaurantServiceTest {
@@ -59,12 +60,18 @@ public class RestaurantServiceTest {
         
         given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
     }
+
     @Test
-    public void getRestaurants(){
+    public void getRestaurantsWithExisted(){
         List<Restaurant> restaurants = restaurantService.getRestaurants();
         Restaurant restaurant = restaurants.get(0);
 
         assertThat(restaurant.getId()).isEqualTo(1004L);
+    }
+
+    @Test(expected = RestaurantNotFoundException.class)
+    public void getRestaurantsWithNotExisted(){
+        restaurantService.getRestaurant(404L);
     }
 
     @Test

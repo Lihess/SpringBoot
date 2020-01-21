@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import kr.co.fastcampus.eatgo.application.RestaurantService;
 import kr.co.fastcampus.eatgo.domain.MenuItem;
 import kr.co.fastcampus.eatgo.domain.Restaurant;
+import kr.co.fastcampus.eatgo.domain.RestaurantNotFoundException;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.ArgumentMatchers.any;
@@ -61,7 +62,7 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void detail() throws Exception{
+    public void detailWithExisted() throws Exception{
         Restaurant restaurant =  Restaurant.builder()
                                             .id(1004L)
                                             .name("Bob Zip")
@@ -81,6 +82,15 @@ public class RestaurantControllerTest {
         .andExpect(content().string(
             containsString("Kimchi")
         ));
+    }
+
+    @Test
+    public void detailWithNotExisted() throws Exception{
+        given(restaurantService.getRestaurant(404L)).willThrow(new RestaurantNotFoundException(404L));
+        
+        mvc.perform(get("/restaurants/404"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("{}"));
     }
 
     @Test
