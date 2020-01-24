@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +33,7 @@ public class Restaurant{
     private String address;
 
     @Transient // 임시, DB에 저장되지 않음
+    @JsonInclude(JsonInclude.Include.NON_NULL) // null이 아닐때만 넣어줌!
     private List<MenuItem> menuItems;
 
     public void addMenuItem(MenuItem menuItem){
