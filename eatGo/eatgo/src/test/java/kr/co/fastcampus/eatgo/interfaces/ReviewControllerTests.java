@@ -13,11 +13,13 @@ import kr.co.fastcampus.eatgo.application.ReviewService;
 import kr.co.fastcampus.eatgo.domain.Review;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ReviewController.class)
@@ -30,21 +32,17 @@ public class ReviewControllerTests {
 
     @Test
     public void createWithVaildAttributes() throws Exception {
-        given(reviewService.addReview(any())).willReturn(
-            Review.builder()
-                    .id(1L)
-                    .name("JOKER")
-                    .score(3)
-                    .description("Mat-it-da")
-                    .build()
+        given(reviewService.addReview(eq(1L),any())).willReturn(
+            Review.builder().id(1L).build()
         );
         
         mvc.perform(post("/restaurants/1/reviews")
             .contentType(MediaType.APPLICATION_JSON)
             .content("{\"name\":\"JOKER\",\"score\":3,\"description\":\"Mat-is-da\"}"))
-            .andExpect(status().isCreated());
+            .andExpect(status().isCreated())
+            .andExpect(header().string("location", "/restaurants/1/reviews/1"));
 
-        verify(reviewService).addReview(any());
+        verify(reviewService).addReview(eq(1L), any());
     }
 
     @Test
@@ -54,6 +52,6 @@ public class ReviewControllerTests {
             .content("{}"))
             .andExpect(status().isCreated());
 
-        verify(reviewService, never()).addReview(any());
+        verify(reviewService, never()).addReview(eq(1L), any());
     }
 }

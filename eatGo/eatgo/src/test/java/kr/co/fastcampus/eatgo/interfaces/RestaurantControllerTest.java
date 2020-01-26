@@ -13,6 +13,7 @@ import kr.co.fastcampus.eatgo.application.RestaurantService;
 import kr.co.fastcampus.eatgo.domain.MenuItem;
 import kr.co.fastcampus.eatgo.domain.Restaurant;
 import kr.co.fastcampus.eatgo.domain.RestaurantNotFoundException;
+import kr.co.fastcampus.eatgo.domain.Review;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -68,7 +70,17 @@ public class RestaurantControllerTest {
                                             .name("Bob Zip")
                                             .address("Seoul")
                                             .build();
-        restaurant.addMenuItem(MenuItem.builder().name("Kimchi").build());
+        MenuItem menuItem = MenuItem.builder().name("Kimchi").build();                                  
+        
+        restaurant.setMenuItems(Arrays.asList(menuItem));
+        Review review = Review.builder()
+                                .name("JOKER")
+                                .score(5)
+                                .description("Great!")
+                                .build();
+        restaurant.setReviews(Arrays.asList(review));
+
+        
         given(restaurantService.getRestaurant(1004L)).willReturn(restaurant);
 
         mvc.perform(get("/restaurants/1004"))
@@ -81,6 +93,9 @@ public class RestaurantControllerTest {
         ))
         .andExpect(content().string(
             containsString("Kimchi")
+        ))
+        .andExpect(content().string(
+            containsString("Great!")
         ));
     }
 

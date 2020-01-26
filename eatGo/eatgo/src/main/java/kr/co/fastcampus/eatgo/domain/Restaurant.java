@@ -36,9 +36,21 @@ public class Restaurant{
     @JsonInclude(JsonInclude.Include.NON_NULL) // null이 아닐때만 넣어줌!
     private List<MenuItem> menuItems;
 
+    @Transient // 임시, DB에 저장되지 않음
+    @JsonInclude(JsonInclude.Include.NON_NULL) // null이 아닐때만 넣어줌!
+    private List<Review> reviews;
+
     public void addMenuItem(MenuItem menuItem){
         if(menuItems == null)
             menuItems = new ArrayList<>();
         menuItems.add(menuItem);
+    }
+
+	public void setMenuItems(List<MenuItem> menuItems) {
+        this.menuItems = new ArrayList<>(menuItems);
+    }
+    
+    public void setReviews(List<Review> reviews){
+        this.reviews = new ArrayList<>(reviews);
     }
 }
