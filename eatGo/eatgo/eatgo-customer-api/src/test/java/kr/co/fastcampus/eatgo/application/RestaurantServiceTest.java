@@ -14,11 +14,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
+import kr.co.fastcampus.eatgo.domain.MenuItem;
+import kr.co.fastcampus.eatgo.domain.MenuItemRepository;
 import kr.co.fastcampus.eatgo.domain.Restaurant;
 import kr.co.fastcampus.eatgo.domain.RestaurantNotFoundException;
 import kr.co.fastcampus.eatgo.domain.RestaurantRepository;
+import kr.co.fastcampus.eatgo.domain.Review;
+import kr.co.fastcampus.eatgo.domain.ReviewRepository;
 
 public class RestaurantServiceTest {
     private RestaurantService restaurantService;
@@ -26,12 +32,19 @@ public class RestaurantServiceTest {
     @Mock
     private RestaurantRepository restaurantRepository;
 
+    @Mock
+    private MenuItemRepository menuItemRepository;
+
+    @Mock
+    private ReviewRepository reviewRepository;
+
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
         mockRestaurantRepository();
+        mockMenuItemRepository();
 
-        restaurantService = new RestaurantService(restaurantRepository);
+        restaurantService = new RestaurantService(restaurantRepository, menuItemRepository, reviewRepository);
     }
 
     public void mockRestaurantRepository(){
@@ -47,6 +60,24 @@ public class RestaurantServiceTest {
     
         given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
         // findById 는 Optional 형태로 객체를 반환하므로, null이 아닌 Optional 객체를 생성하는 of 메소드 이용!
+    }
+
+    public void mockMenuItemRepository(){
+        List<MenuItem> menuItems = new ArrayList<>();
+        menuItems.add(MenuItem.builder().name("Kimchi").build());
+        
+        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
+    }
+
+    public void mockReviewRepository(){
+        List<Review> reviews = new ArrayList<>();
+        reviews.add(Review.builder()
+                            .name("BeRyong")
+                            .score(1)
+                            .description("Bad")
+                            .build());
+
+        given(reviewRepository.findAllByRestaurantId(1004L)).willReturn(reviews);
     }
 
     @Test
@@ -65,8 +96,17 @@ public class RestaurantServiceTest {
     @Test
     public void getRestaurant(){
         Restaurant restaurant = restaurantService.getRestaurant(1004L);
-       
+        
+        verify(menuItemRepository).findAllByRestaurantId(eq(1004L));
+        verify(reviewRepository).findAllByRestaurantId(eq(1004L));
+        
         assertThat(restaurant.getId(), is(1004L));
+
+        MenuItem menuItem = restaurant.getMenuItems().get(0);
+        assertThat(menuItem.getName()).isEqualTo("Kimchi");
+
+        Review review = restaurant.getReviews().get(0);
+        assertThat(review.getDescription()).isEqualTo("Bad");
     }
 
     @Test
