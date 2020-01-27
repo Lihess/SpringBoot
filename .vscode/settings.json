@@ -2,5 +2,6 @@
     "java.dependency.packagePresentation": "hierarchical",
     "java.dependency.syncWithFolderExplorer": false,
     "java.configuration.updateBuildConfiguration": "interactive",
-    "maven.view": "hierarchical"
+    "maven.view": "hierarchical",
+    "git.ignoreLimitWarning": true
 }
