@@ -29,4 +29,10 @@ public class MenuItem{
     @Transient
     @JsonInclude(JsonInclude.Include.NON_DEFAULT) // true 일때만 Json에 넣어주어라. 
     private Boolean destroy; // 삭제 여부을 위한 변수
+
+	public boolean isDestroy() {
+        if(this.destroy == null)
+            return false;
+        else return this.destroy;
+	}
 }
