@@ -17,7 +17,7 @@ import kr.co.fastcampus.eatgo.domain.MenuItem;
 public class MenuItemController {
     @Autowired
     public MenuItemService menuItemService;
-
+    
     @GetMapping("/restaurants/{restaurantId}/menuitems")
     public List<MenuItem> list(@PathVariable Long restaurantId) {
         List<MenuItem> menuItems = menuItemService.getMenuItems(restaurantId);
