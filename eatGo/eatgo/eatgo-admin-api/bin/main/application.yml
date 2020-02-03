@@ -8,10 +8,10 @@ spring :
             ddl-auto: update
          # jbdc : java에서 쓰는 데이터베이스 표준
 
---- # 동일한 변수를 여러개 사용하기 위함
-# profiles을 여러 개로 설정하여 상황에 맞는 것으로 실행
-spring:
-    profiles : test # profiles를 test라 하면 해당 설정으로 실행됨
-    #사용예시 : SPRING_PROFILES_ACTIVE=test
-    datasource:
-        url: jdbc:h2:mem:test
+#--- # 동일한 변수를 여러개 사용하기 위함
+## profiles을 여러 개로 설정하여 상황에 맞는 것으로 실행
+#spring:
+#    profiles : test # profiles를 test라 하면 해당 설정으로 실행됨
+#    #사용예시 : SPRING_PROFILES_ACTIVE=test
+#    datasource:
+#        url: jdbc:h2:mem:test

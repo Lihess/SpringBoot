@@ -9,11 +9,13 @@ import kr.co.fastcampus.eatgo.domain.Region;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 public class RegionController {
     @Autowired
@@ -27,7 +29,7 @@ public class RegionController {
     @PostMapping("/regions")
     public ResponseEntity<?> create(@RequestBody Region resource) throws URISyntaxException {
         String name = resource.getName();
-        Region region =  regionService.addRegion(name);
+        Region region = regionService.addRegion(name);
         
         String url = "/regions/" + region.getId();
         return ResponseEntity.created(new URI(url)).body("{}");

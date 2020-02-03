@@ -18,21 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CategoryController {
+
     @Autowired
     private CategoryService categoryService;
 
     @GetMapping("/categories")
     public List<Category> list() {
-        return categoryService.getCategories();
+        List<Category> regions = categoryService.getCategories();
+
+        return regions;
     }
 
     @PostMapping("/categories")
-    public ResponseEntity<?> create(@RequestBody Region resource) throws URISyntaxException {
+    public ResponseEntity<?> create(@RequestBody Category resource) throws URISyntaxException {
         String name = resource.getName();
-        Category category = categoryService.addRegion(name);
-        
-        String url = "/regions/" + category.getId();
+
+        Category category = categoryService.addCategory(name);
+
+        String url = "/categories/" + category.getId();
         return ResponseEntity.created(new URI(url)).body("{}");
     }
-    
+
 }

@@ -2,6 +2,8 @@ package kr.co.fastcampus.eatgo.application;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,7 @@ import kr.co.fastcampus.eatgo.domain.Category;
 import kr.co.fastcampus.eatgo.domain.CategoryRepository;
 
 @Service
+@Transactional
 public class CategoryService{
     private CategoryRepository categoryRepository;
 
@@ -18,7 +21,7 @@ public class CategoryService{
     }
 
 	public List<Category> getCategories() {
-		List<Category> regions = categoryRepository.findAll();
-        return regions;
+		List<Category> categories = categoryRepository.findAll();
+        return categories;
 	}
 }

@@ -24,7 +24,6 @@ import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-
 @RunWith(SpringRunner.class)
 @WebMvcTest(RestaurantController.class)
 public class RestaurantControllerTest {
@@ -40,13 +39,13 @@ public class RestaurantControllerTest {
         restaurants.add(Restaurant.builder()
                                     .id(1004L)
                                     .name("Bob Zip")
-                                    .address("Seoul")
+                                    .address("서울")
                                     .build()); // 가짜 객체 생성.
         
-        given(restaurantService.getRestaurants()).willReturn(restaurants);
+        given(restaurantService.getRestaurants("서울")).willReturn(restaurants);
 
         // 반환되는 데이터. JSON 형태로 출력되도록 함.
-        mvc.perform(get("/restaurants"))
+        mvc.perform(get("/restaurants?region=서울"))
             .andExpect(status().isOk())
             .andExpect(content().string(
                 containsString("\"id\":1004")

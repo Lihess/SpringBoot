@@ -81,7 +81,7 @@ public class RestaurantServiceTest {
 
     @Test
     public void getRestaurantsWithExisted(){
-        List<Restaurant> restaurants = restaurantService.getRestaurants();
+        List<Restaurant> restaurants = restaurantService.getRestaurants("서울");
         Restaurant restaurant = restaurants.get(0);
 
         assertThat(restaurant.getId()).isEqualTo(1004L);

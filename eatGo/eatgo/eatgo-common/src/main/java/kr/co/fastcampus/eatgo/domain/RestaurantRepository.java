@@ -11,5 +11,6 @@ import kr.co.fastcampus.eatgo.domain.Restaurant;
 @Repository
 public interface RestaurantRepository extends CrudRepository<Restaurant, Long>{
     List<Restaurant> findAll();
+    List<Restaurant> findAllByAddressContaining(String region);
     Optional<Restaurant> findById(Long id);
 }
