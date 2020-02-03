@@ -39,13 +39,14 @@ public class RestaurantControllerTest {
         restaurants.add(Restaurant.builder()
                                     .id(1004L)
                                     .name("Bob Zip")
+                                    .categoryId(2L)
                                     .address("서울")
                                     .build()); // 가짜 객체 생성.
         
-        given(restaurantService.getRestaurants("서울")).willReturn(restaurants);
+        given(restaurantService.getRestaurants("서울", 2L)).willReturn(restaurants);
 
         // 반환되는 데이터. JSON 형태로 출력되도록 함.
-        mvc.perform(get("/restaurants?region=서울"))
+        mvc.perform(get("/restaurants?region=서울&category=2"))
             .andExpect(status().isOk())
             .andExpect(content().string(
                 containsString("\"id\":1004")

@@ -13,4 +13,6 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long>{
     List<Restaurant> findAll();
     List<Restaurant> findAllByAddressContaining(String region);
     Optional<Restaurant> findById(Long id);
+	List<Restaurant> findAllByAddressContainingAndCategoryId(String region, Long categoryId);
+    // 2개를 이용해서 찾을 경우, 중간에 and여야 함!
 }

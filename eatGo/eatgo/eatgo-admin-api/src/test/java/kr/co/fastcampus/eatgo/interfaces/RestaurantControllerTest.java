@@ -43,6 +43,7 @@ public class RestaurantControllerTest {
         restaurants.add(Restaurant.builder()
                                     .id(1004L)
                                     .name("Bob Zip")
+                                    .categoryId(1L)
                                     .address("Seoul")
                                     .build()); // 가짜 객체 생성.
         
@@ -64,6 +65,7 @@ public class RestaurantControllerTest {
         Restaurant restaurant =  Restaurant.builder()
                                             .id(1004L)
                                             .name("Bob Zip")
+                                            .categoryId(1L)
                                             .address("Seoul")
                                             .build();
         
@@ -92,7 +94,7 @@ public class RestaurantControllerTest {
     public void createWithValidData() throws Exception{
         mvc.perform(post("/restaurants")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"name\":\"BeRyong\",\"addresdd\":\"Seoul\"}"))
+            .content("{\"categoryId\":1,\"name\":\"BeRyong\",\"addresdd\":\"Seoul\"}"))
             .andExpect(status().isCreated())
             .andExpect(header().string("location", "/restaurants/1234"))
             .andExpect(content().string("{}"));
@@ -105,7 +107,7 @@ public class RestaurantControllerTest {
     public void createWithInvalidData() throws Exception{
         mvc.perform(post("/restaurants")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"name\":\"\",\"addresdd\":\"\"}"))
+            .content("{\"categoryId\":1\"name\":\"\",\"addresdd\":\"\"}"))
             .andExpect(status().isBadRequest());
     }
 
@@ -113,7 +115,7 @@ public class RestaurantControllerTest {
     public void updateWithValidData() throws Exception {
         mvc.perform(patch("/restaurants/1004")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("\"name\":\"Bo Bar\",\"address\":\"Seoul\""))
+            .content("\"categoryId\":1\"name\":\"Bo Bar\",\"address\":\"Seoul\""))
             .andExpect(status().isOk());
         
             verify(restaurantService).updateRestaurant(1004L, "Bo Bar", "Seoul");

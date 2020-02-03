@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -31,6 +32,9 @@ public class Restaurant{
 
     @NotNull
     private String address;
+
+    @NotNull
+    private Long categoryId;
 
     @Transient // 임시, DB에 저장되지 않음
     @JsonInclude(JsonInclude.Include.NON_NULL) // null이 아닐때만 넣어줌!
