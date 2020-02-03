@@ -1,6 +1,5 @@
 package kr.co.fastcampus.eatgo.domain;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -13,12 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-public class Region{
+public class Category{
     @Id
     @GeneratedValue
     private Long id;
-    
-    private String name;
 
+    private String name;
 }
