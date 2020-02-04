@@ -18,14 +18,17 @@ import kr.co.fastcampus.eatgo.application.UserService;
 import kr.co.fastcampus.eatgo.domain.Restaurant;
 import kr.co.fastcampus.eatgo.domain.RestaurantNotFoundException;
 import kr.co.fastcampus.eatgo.domain.User;
+import kr.co.fastcampus.eatgo.domain.UserRepository;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
@@ -69,5 +72,29 @@ public class UserControllerTest {
 
         verify(userService).addUser(email, name);
     }
+
+    @Test
+    public void update() throws Exception { // 회원가입이랑 다름
+        mvc.perform(patch("/users/1004")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{\"email\":\"asdsad@asd.com\",\"name\":\"test\",\"level\":100}"))
+            .andExpect(status().isOk());
+
+        Long id = 1004L;
+        String email = "asdsad@asd.com";
+        String name = "test";
+        Long level = 100L;
+
+        verify(userService).updateUser(eq(id), eq(email), eq(name), eq(level));
+    }
+
+    @Test
+    public void deactivate() throws Exception {
+        mvc.perform(delete("/user/1004"))
+            .andExpect(status().isOk());
+
+        verify(userService).deactiveUser(1004L);
+    }
+
 }
     

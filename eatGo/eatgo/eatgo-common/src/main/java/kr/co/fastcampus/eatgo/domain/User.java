@@ -33,4 +33,12 @@ public class User{
             return true;
         else return false;
     }
+
+	public boolean isActive() {
+		return level > 0;
+    }
+    
+    public void deativate(){
+        level = 0L;
+    }
 }
