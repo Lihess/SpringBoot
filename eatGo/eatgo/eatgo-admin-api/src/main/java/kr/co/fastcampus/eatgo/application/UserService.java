@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import kr.co.fastcampus.eatgo.domain.User;
 import kr.co.fastcampus.eatgo.domain.UserRepository;
 
+
 @Service
 @Transactional
 public class UserService{

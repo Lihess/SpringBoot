@@ -1,5 +1,6 @@
 package kr.co.fastcampus.eatgo.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
 public class User{
     @Id
     @GeneratedValue
@@ -25,6 +27,8 @@ public class User{
     @NotEmpty
     private String name;
 
+    private String password;
+    
     @NotNull
     private Long level;
 
