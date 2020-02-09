@@ -8,7 +8,8 @@ Charter 3의 레스토랑 예약 사이트에 대한 프로젝트 입니다.
 > HttpSecurity에 대한 설정 필요
 
 ### JWT
-JWT(JSON WEB TOKENS) : JSON 형식을 이용하여 Web에서 이용가능한 토큰의 표준
+JWT(JSON WEB TOKENS) : JSON 형식을 이용하여 Web에서 이용가능한 토큰의 표준, 해당 토큰을 이용하여 사용자을 인가한다.
+
 <br><br>
 - JWT의 구조(
 1. Header : 타입, 알고리즘에 대한 사항

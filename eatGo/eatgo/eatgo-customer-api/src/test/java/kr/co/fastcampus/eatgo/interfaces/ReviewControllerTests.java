@@ -35,10 +35,13 @@ public class ReviewControllerTests {
         given(reviewService.addReview(eq(1L),any())).willReturn(
             Review.builder().id(1L).build()
         );
+
+        String token = ""; // 토큰을 알 수 없어서 테스트 없이 코드만..
         
         mvc.perform(post("/restaurants/1/reviews")
+            .header("Authorization", "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"name\":\"JOKER\",\"score\":3,\"description\":\"Mat-is-da\"}"))
+            .content("{\"score\":3,\"description\":\"Mat-is-da\"}"))
             .andExpect(status().isCreated())
             .andExpect(header().string("location", "/restaurants/1/reviews/1"));
 
