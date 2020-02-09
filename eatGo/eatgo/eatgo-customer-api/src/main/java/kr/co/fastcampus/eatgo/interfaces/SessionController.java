@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.co.fastcampus.eatgo.application.UserService;
 import kr.co.fastcampus.eatgo.domain.SessionResponseDto;
 import kr.co.fastcampus.eatgo.domain.User;
+import kr.co.fastcampus.eatgo.utils.JwtUtil;
 
 @RestController
 public class SessionController {
+    @Autowired
+    private JwtUtil jwtUtill;
+
     @Autowired
     private UserService userSerivce;
 
@@ -23,11 +27,11 @@ public class SessionController {
     public ResponseEntity<SessionResponseDto> create(
         @RequestBody User resource
     ) throws URISyntaxException {
-        String accessToken = "ACCESSTOKEN";
-
         String email = resource.getEmail();
         String password = resource.getPassword();
-        userSerivce.authenticate(email, password);
+        User user = userSerivce.authenticate(email, password);
+
+        String accessToken = jwtUtill.createToken(user.getId(), user.getName());
 
         SessionResponseDto sessionDto = SessionResponseDto.builder().accessToken(accessToken).build();
         

@@ -7,6 +7,8 @@ spring :
         hibernate: 
             ddl-auto: update
          # jbdc : java에서 쓰는 데이터베이스 표준
+jwt:
+    secret : "12345678901234567890123456798012"
 
 #--- # 동일한 변수를 여러개 사용하기 위함
 ## profiles을 여러 개로 설정하여 상황에 맞는 것으로 실행

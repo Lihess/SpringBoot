@@ -13,8 +13,11 @@ import kr.co.fastcampus.eatgo.application.EmailNotExistedExcption;
 import kr.co.fastcampus.eatgo.application.PasswordWrongExcption;
 import kr.co.fastcampus.eatgo.application.UserService;
 import kr.co.fastcampus.eatgo.domain.User;
+import kr.co.fastcampus.eatgo.utils.JwtUtil;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -35,12 +38,18 @@ public class SessionControllerTest {
 
     @Test
     public void createWithValidAttributes() throws Exception {
+        Long id = 1004L;
+        String name = "John";
+
+        User mockUser = User.builder().id(id).name(name).build();
+        
         mvc.perform(post("/session")
             .contentType(MediaType.APPLICATION_JSON)
             .content("{\"email\":\"test@example.com\",\"password\":\"test\"}"))
             .andExpect(status().isCreated())
             .andExpect(header().string("location", "/session"))
-            .andExpect(content().string("{\"accessToken\":\"ACCESSTOKEN\"}"));
+            .andExpect(content().string(containsString("{\"accessToken\":\"ACCESSTOKEN\"}")))
+            .andExpect(content().string(containsString(".")));
 
         verify(userService).authenticate(eq("test@example.com"),eq("test"));
     }
