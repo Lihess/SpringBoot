@@ -18,9 +18,12 @@ import kr.co.fastcampus.eatgo.domain.UserRepository;
 public class UserService {
     private UserRepository userRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
 	}
 
 	public User registerUser(String email, String name, String password){
@@ -31,12 +34,21 @@ public class UserService {
         }
 
         // password 암호화
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(password);
 
         User user = User.builder().name(name).email(email).password(encodedPassword).level(1L).build();
 
         userRepository.save(user);
+        return null;
+    }
+
+	public User authenticate(String email, String password) {
+        User user = userRepository.findByEmail(email)
+                                    .orElseThrow(() -> new EmailNotExistedExcption(email));
+
+        if(!passwordEncoder.matches(password, user.getPassword()))
+            throw new PasswordWrongExcption();
+
         return null;
     }
 }
